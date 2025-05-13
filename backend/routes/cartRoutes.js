@@ -9,7 +9,7 @@ const User = require('../models/User'); // Import User model
 router.post('/add', async (req, res) => {
   try {
     const { userId, productId } = req.body;
-
+console.log("Received:", userId, productId);
     // Check if the user and product exist
     const user = await User.findById(userId);
     const product = await Product.findById(productId);

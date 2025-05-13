@@ -6,9 +6,9 @@ const api = axios.create({
 });
 
 // Example function to add an item to the cart
-export const addToCart = async (productId, quantity, config) => {
+export const addToCart = async (userId, productId, config) => {
   try {
-    const response = await api.post("/cart", { productId, quantity }, config);
+    const response = await api.post("/cart/add", { userId, productId }, config);
     return response.data;
   } catch (error) {
     console.error("Error adding to cart", error);
@@ -16,16 +16,18 @@ export const addToCart = async (productId, quantity, config) => {
   }
 };
 
+
 // Example function to add an item to the wishlist
-export const addToWishlist = async (productId, config) => {
+export const addToWishlist = async (userId, productId, config) => {
   try {
-    const response = await api.post("/wishlist", { productId }, config);
+    const response = await api.post("/wishlist", { userId, productId }, config);
     return response.data;
   } catch (error) {
     console.error("Error adding to wishlist", error);
     throw error;
   }
 };
+
 
 // Example function to get cart data
 export const getCart = async (config) => {

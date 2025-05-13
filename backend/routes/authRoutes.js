@@ -19,6 +19,7 @@ router.post("/signup", async (req, res) => {
 });
 
 // Login Route
+// Login Route
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -28,11 +29,19 @@ router.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: "Invalid password" });
 
-    const token = jwt.sign({ id: user._id }, "secret");
-    res.json({ token });
+    const token = jwt.sign({ id: user._id }, "secret", { expiresIn: '1h' }); // Add expiration time if needed
+    const refreshToken = jwt.sign({ id: user._id }, "secret", { expiresIn: '7d' }); // Refresh token for longer validity
+
+    res.json({
+      token,
+      refreshToken,
+      user: { id: user._id, username: user.username, email: user.email }, // Send user info
+      message: "Login successful",
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 module.exports = router;
