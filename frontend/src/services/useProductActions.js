@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { addToWishlist, addToCart } from './api'; // Removed getWishlist and getCart imports
+import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 const useProductActions = () => {
     const [loadingStates, setLoadingStates] = useState({});
     const [wishlist, setWishlist] = useState([]); // Ensure this is an array
     const [cart, setCart] = useState([]);
-    const [tempUserId, setTempUserId] = useState(null);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -15,20 +16,17 @@ const useProductActions = () => {
         'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
     });
 
-    // Generate or retrieve temporary user ID
-    useEffect(() => {
-        let userId = localStorage.getItem('tempUserId');
-        if (!userId) {
-            userId = Date.now().toString() + Math.random().toString(36).substring(2);
-            localStorage.setItem('tempUserId', userI.d);
-        }
-        setTempUserId(userId);
-    }, []);
+    const { user } = useAuth();
 
     // Removed fetchData useEffect for wishlist and cart
     // Just initializing empty arrays for now
 
     const handleWishlist = async (product) => {
+ if (!user) {
+ toast.error('Please log in to perform this action.');
+ return;
+ }
+
         const isInWishlist = wishlist.some(item => item.productId === product._id);
         setLoadingStates(prev => ({ ...prev, [product._id]: true }));
 
@@ -38,7 +36,7 @@ const useProductActions = () => {
                 setWishlist(wishlist.filter(item => item.productId !== product._id));
                 setSuccess('Removed from wishlist');
             } else {
-                await addToWishlist(tempUserId, product._id, { headers: getAuthHeaders() });
+                await addToWishlist(user._id, product._id, { headers: getAuthHeaders() });
                 setWishlist([...wishlist, { productId: product._id, ...product }]);
                 setSuccess('Added to wishlist');
             }
@@ -55,9 +53,15 @@ const useProductActions = () => {
     };
 
     const handleAddToCart = async (product) => {
+ if (!user) {
+ toast.error('Please log in to perform this action.');
+ return;
+ }
+
         setLoadingStates(prev => ({ ...prev, [product._id]: true }));
         try {
-            await addToCart(tempUserId, product._id, { headers: getAuthHeaders() });
+            console.log('User ID being sent to addToCart:', user._id);
+            await addToCart(user._id, product._id, { headers: getAuthHeaders() });
             setCart([...cart, { productId: product._id, ...product }]);
             setSuccess('Added to cart successfully');
         } catch (error) {

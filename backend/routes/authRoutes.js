@@ -35,7 +35,7 @@ router.post("/login", async (req, res) => {
     res.json({
       token,
       refreshToken,
-      user: { id: user._id, username: user.username, email: user.email }, // Send user info
+ user: { _id: user._id, username: user.username, email: user.email }, // Send user info
       message: "Login successful",
     });
   } catch (err) {

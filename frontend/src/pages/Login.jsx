@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FaArrowLeft } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -10,6 +11,7 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    const { login } = useAuth();
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -46,6 +48,9 @@ const handleSubmit = async (e) => {
             localStorage.setItem('userInfo', JSON.stringify(data.user));
             localStorage.setItem('token', data.token);
             localStorage.setItem('refreshToken', data.refreshToken);
+
+            // Update authentication context
+            login(data.user);
 
             // Provide feedback to the user
             toast.success(data.message || 'Login successful!');

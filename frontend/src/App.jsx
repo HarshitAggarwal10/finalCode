@@ -10,6 +10,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Signup from './pages/SignUp';
 import Login from './pages/Login';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 function AppContent() {
   const location = useLocation();
@@ -18,6 +19,7 @@ function AppContent() {
   return (
     <div className="min-h-screen flex flex-col">
       {!hideHeaderFooter && <Header />}
+      
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -31,6 +33,7 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </main>
+
       {!hideHeaderFooter && <Footer />}
     </div>
   );
@@ -38,9 +41,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 

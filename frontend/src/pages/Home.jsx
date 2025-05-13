@@ -7,9 +7,13 @@ import Banner3 from '../components/Banner3';
 import Newsletter from '../components/Newsletter';
 
 export default function Home() {
+  // Generate a 24-character ObjectId for each product
+  const generateObjectId = () => {
+    return Math.random().toString(16).substring(2, 26); // 24-character hex string
+  };
   const featuredProducts = [
     {
-      _id: "prod1",
+      _id: generateObjectId(),
       name: "Minimalist Space Tee",
       price: 45,
       image: "src/img/products/f1.jpg",
@@ -18,7 +22,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod2",
+      _id: generateObjectId(),
       name: "Urban Explorer Shirt",
       price: 52,
       image: ["src/img/products/f2.jpg"],
@@ -27,7 +31,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod3",
+      _id: generateObjectId(),
       name: "Retro Vibe T-Shirt",
       price: 39,
       image: ["src/img/products/f3.jpg"],
@@ -36,7 +40,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod4",
+      _id: generateObjectId(),
       name: "Monochrome Streetwear",
       price: 60,
       image: ["src/img/products/f4.jpg"],
@@ -45,7 +49,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod5",
+      _id: generateObjectId(),
       name: "Bold Text Graphic Tee",
       price: 48,
       image: ["src/img/products/f5.jpg"],
@@ -54,7 +58,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod6",
+      _id: generateObjectId(),
       name: "Pastel Sunset Top",
       price: 54,
       image: ["src/img/products/f6.jpg"],
@@ -63,7 +67,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod7",
+      _id: generateObjectId(),
       name: "Classic Cotton Crew",
       price: 42,
       image: ["src/img/products/f7.jpg"],
@@ -72,7 +76,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod8",
+      _id: generateObjectId(),
       name: "Galaxy Print Tee",
       price: 65,
       image: ["src/img/products/f8.jpg"],
@@ -84,7 +88,7 @@ export default function Home() {
 
   const newArrivals = [
     {
-      _id: "prod9",
+      _id: generateObjectId(),
       name: "Abstract Art Tee",
       price: 58,
       image: ["src/img/products/n1.jpg"],
@@ -93,7 +97,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod10",
+      _id: generateObjectId(),
       name: "Grunge Layered Shirt",
       price: 64,
       image: ["src/img/products/n2.jpg"],
@@ -102,7 +106,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod11",
+      _id: generateObjectId(),
       name: "Wave Pattern Tee",
       price: 50,
       image: ["src/img/products/n3.jpg"],
@@ -111,7 +115,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod12",
+      _id: generateObjectId(),
       name: "Dreamcore Aesthetic Top",
       price: 62,
       image: ["src/img/products/n4.jpg"],
@@ -120,7 +124,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod13",
+      _id: generateObjectId(),
       name: "Skyline Silhouette Tee",
       price: 55,
       image: ["src/img/products/n5.jpg"],
@@ -129,7 +133,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod14",
+      _id: generateObjectId(),
       name: "Neo Tokyo Street Shirt",
       price: 70,
       image: ["src/img/products/n6.jpg"],
@@ -138,7 +142,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod15",
+      _id: generateObjectId(),
       name: "Vintage Camera Tee",
       price: 49,
       image: ["src/img/products/n7.jpg"],
@@ -147,7 +151,7 @@ export default function Home() {
       stock: 100
     },
     {
-      _id: "prod16",
+      _id: generateObjectId(),
       name: "Cyberwave Mesh Tee",
       price: 68,
       image: ["src/img/products/n8.jpg"],

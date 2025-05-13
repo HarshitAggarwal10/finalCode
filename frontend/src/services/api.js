@@ -5,7 +5,7 @@ const api = axios.create({
   baseURL: "http://localhost:5000/api",
 });
 
-// Example function to add an item to the cart
+// Function to add an item to the cart
 export const addToCart = async (userId, productId, config) => {
   try {
     const response = await api.post("/cart/add", { userId, productId }, config);
@@ -15,7 +15,6 @@ export const addToCart = async (userId, productId, config) => {
     throw error;
   }
 };
-
 
 // Example function to add an item to the wishlist
 export const addToWishlist = async (userId, productId, config) => {
